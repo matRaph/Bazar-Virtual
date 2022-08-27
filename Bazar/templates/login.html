@@ -12,6 +12,11 @@
     <form action="{% url 'login' %}" method="post">
         {% csrf_token %}
         <div class="mb-4">
+            {% if messages %}
+                {% for message in messages %}
+                    <p class="text-danger">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
             <label class="form-label" for="username">User</label>
             <input class="form-control form-control-sm px-3 py-3 rounded-5" type="text" name="username" placeholder="Usuario" required />
             <br>

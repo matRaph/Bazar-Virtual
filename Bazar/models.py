@@ -22,7 +22,6 @@ class Item(models.Model):
     nome = models.CharField(max_length=100)
     descricao = models.TextField()
     preco = models.DecimalField(max_digits=10, decimal_places=2)
-    imagem = models.ImageField(upload_to='imagens', null=True, blank=True)
     dono = models.ForeignKey(User, on_delete=models.CASCADE, 
         related_name='dono')
     usuario_reserva = models.ForeignKey(User, on_delete=models.CASCADE,null=True, blank=True, related_name='usuario_reserva')

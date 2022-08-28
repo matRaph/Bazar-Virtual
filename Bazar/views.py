@@ -4,12 +4,12 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.decorators import method_decorator
 from django.views.decorators.http import require_POST
 from django.views.generic import TemplateView
 
-from .models import Evento  # Importação do modelo
+from .models import Evento, Item  # Importação do modelo
 
 
 # Create your views here.
@@ -75,9 +75,32 @@ class IndexView(TemplateView):
             return render(request, self.template_name, {'eventos': None})
 
 @method_decorator(login_required, name='dispatch')
-class EventoView(TemplateView):
-    template_name = 'evento.html'
+class ItensView(TemplateView):
+    template_name = 'itens.html'
 
     def get(self, request, id):
-        evento = Evento.objects.get(id=id)
-        return render(request, self.template_name, {'evento': evento})
+        itens = Item.objects.filter(evento__id=id)
+        evento = get_object_or_404(Evento, pk=id)
+        if itens:
+            return render(request, self.template_name, {'itens': itens, 'evento': evento})
+        else:
+            return render(request, self.template_name, {'itens': None, 'evento': evento})
+
+@method_decorator(login_required, name='dispatch')
+class ItemView(TemplateView):
+    template_name = 'item.html'
+
+    def get(self, request, id, item_id):
+        item = get_object_or_404(Item, id=item_id)
+        evento = get_object_or_404(Evento, id=id)
+        return render(request, self.template_name, {'item': item, 'evento': evento})
+
+class ReservarItemView(TemplateView):
+    template_name = 'reservar.html'
+
+    def get(self, request, id, item_id):
+        item = get_object_or_404(Item, id=item_id)
+        evento = get_object_or_404(Evento, id=id)
+        item.usuario_reserva = request.user
+        item.save()
+        return render(request, self.template_name, {'item': item, 'evento': evento})

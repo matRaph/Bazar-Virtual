@@ -13,7 +13,7 @@
         <h3>Eventos</h3>
         <ul>
             {% for evento in eventos %}
-                <li><a href="{% url 'evento' evento.id %}">{{evento.nome}}</a></li>
+                <li><h4><a href="{% url 'evento' evento.id %}">{{evento.nome}}</a></h4></li>
             {% endfor %}
         </ul>
     {% else %}

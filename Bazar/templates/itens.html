@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evento</title>
+</head>
+<body>
+    <h1><a href="{% url 'index' %}">Bazar Virtual</a></h1>
+    <h2>{{evento}}</h2>
+    <p>Evento termina em: {{evento.data_final}}</p>
+    <br>
+    
+    {% if messages %}
+    {% for message in messages %}
+        <p class="text-danger">{{ message }}</p>
+    {% endfor %}
+    {% endif %}
+
+    {% if itens %}
+        <h3>Itens</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Descrição</th>
+                    <th>Valor</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in itens %}
+                    <tr>
+                        <td><a href="{% url 'item' evento.id item.id%}">{{item.nome}}</a></td>
+                        <td>{{item.descricao}}</td>
+                        <td>R${{item.preco}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Ainda não há itens cadastrados nesse evento</p>
+    {% endif %}
+    <h3><a href="cadastrar_item">Cadastrar um item nesse evento</a></h3>
+</body>
+</html>

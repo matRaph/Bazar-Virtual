@@ -1,9 +1,8 @@
 from django.contrib import admin
 
-from .models import Evento, Item, Usuario
+from .models import Evento, Item
 
 # Register your models here.
 
-admin.site.register(Usuario)
 admin.site.register(Item)
 admin.site.register(Evento)

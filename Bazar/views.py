@@ -8,7 +8,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 
-from .forms import ItemForm
+from .forms import EventoForm, ItemForm
 from .models import Evento, Item  # Importação do modelo
 
 
@@ -129,3 +129,21 @@ class CadastrarItemView(TemplateView):
             return redirect('evento', id=evento.id)
         else:
             return render(request, self.template_name, {'form': form, 'evento': evento})
+
+@method_decorator(login_required, name='dispatch')
+class CadastrarEventoView(TemplateView):
+    """Usuário pode cadastrar um evento"""
+    template_name = 'cadastrar_evento.html'
+    evento_form = EventoForm
+
+    def get(self, request):
+        return render(request, self.template_name, {'form': self.evento_form})
+
+    def post(self, request):
+        form = self.evento_form(request.POST)
+        if form.is_valid():
+            evento = form.save(commit=False)
+            evento.save()
+            return redirect('evento', id=evento.id)
+        else:
+            return render(request, self.template_name, {'form': form})

@@ -24,7 +24,8 @@ class Item(models.Model):
     preco = models.DecimalField(max_digits=10, decimal_places=2)
     dono = models.ForeignKey(User, on_delete=models.CASCADE, 
         related_name='dono')
-    usuario_reserva = models.ForeignKey(User, on_delete=models.CASCADE,null=True, blank=True, related_name='usuario_reserva')
+    usuario_reserva = models.ForeignKey(User, on_delete=models.CASCADE,null=True, 
+        blank=True, related_name='usuario_reserva')
     evento = models.ForeignKey(Evento, on_delete=models.CASCADE)
     class Meta:
         verbose_name = 'Item'

@@ -25,7 +25,7 @@ class Item(models.Model):
     dono = models.ForeignKey(User, on_delete=models.CASCADE, 
         related_name='dono')
     usuario_reserva = models.ForeignKey(User, on_delete=models.CASCADE,null=True, blank=True, related_name='usuario_reserva')
-    evento = models.ManyToManyField(Evento, related_name='evento')
+    evento = models.ForeignKey(Evento, on_delete=models.CASCADE)
     class Meta:
         verbose_name = 'Item'
         verbose_name_plural = 'Itens'

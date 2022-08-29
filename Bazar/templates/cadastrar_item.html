@@ -4,16 +4,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
+    <title>Cadastrar Item</title>
 </head>
 <body>
-    <h1>Cadastre-se</h1>
+    <h1><a href="{% url 'index' %}">Bazar Virtual</a></h1>
+    <h2>Cadastre seu item</h2>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <input type="submit" value="Cadastrar">
     </form>
-
-    <h3><a href="{% url 'login' %}">Voltar para Login</a></h3>
 </body>
 </html>

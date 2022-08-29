@@ -11,6 +11,13 @@
     <h2>{{evento}}</h2>
     <p>Evento termina em: {{evento.data_final}}</p>
     <br>
+    
+    {% if messages %}
+    {% for message in messages %}
+        <p class="text-danger">{{ message }}</p>
+    {% endfor %}
+    {% endif %}
+
     {% if itens %}
         <h3>Itens</h3>
         <table>
@@ -30,11 +37,10 @@
                     </tr>
                 {% endfor %}
             </tbody>
-
         </table>
     {% else %}
         <p>Ainda não há itens cadastrados nesse evento</p>
     {% endif %}
-
+    <h3><a href="cadastrar_item">Cadastrar um item nesse evento</a></h3>
 </body>
 </html>

@@ -11,6 +11,13 @@
     <h2>{{item}}</h2>
     <p>{{item.descricao}}</p>
     <p>R${{item.preco}}</p>
+    <br>
+    {% if messages %}
+    {% for message in messages %}
+        <p>{{ message }}</p>
+    {% endfor %}
+    {% endif %}
+    <br>
     <a href="reservar">Reservar Item</a>
 </body>
 </html>
